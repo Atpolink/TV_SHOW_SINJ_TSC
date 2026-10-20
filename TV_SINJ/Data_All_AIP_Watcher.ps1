@@ -75,13 +75,10 @@ function Copy-SourceFile {
                 continue
             }
 
-            # แทนที่ไฟล์เดิมเมื่อคัดลอกสำเร็จ
+           # แทนที่ไฟล์ปลายทางเมื่อคัดลอกสำเร็จ
             if (Test-Path -LiteralPath $TargetFile) {
-                [System.IO.File]::Replace(
-                    $tempFile,
-                    $TargetFile,
-                    $null
-                )
+                Move-Item -LiteralPath $tempFile `
+                    -Destination $TargetFile -Force -ErrorAction Stop
             }
             else {
                 [System.IO.File]::Move(
